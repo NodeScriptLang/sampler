@@ -19,4 +19,5 @@ export function aggregateStats(stats: Stats[]) {
         res.min = Math.min(stat.min, res.min);
         res.max = Math.max(stat.max, res.max);
     }
+    return res;
 }
