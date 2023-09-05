@@ -1,6 +1,6 @@
 {
     "name": "@nodescript/sampler",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "Tiny sample collection and aggregation library",
     "type": "module",
     "sideEffects": false,
