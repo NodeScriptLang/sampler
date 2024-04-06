@@ -6,13 +6,9 @@ export interface Stats {
     sumSq: number;
 }
 
-export interface Labels {
-    [key: string]: string;
-}
-
 export interface Bucket {
     timestamp: number;
-    labels: Labels;
+    labels: object;
     data: any;
     stats: Stats;
 }

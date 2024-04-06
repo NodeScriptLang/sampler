@@ -1,6 +1,6 @@
 import { Event } from 'nanoevent';
 
-import { Bucket, Labels } from './types.js';
+import { Bucket } from './types.js';
 
 /**
  * Collects measurements aggregated by time-based buckets.
@@ -26,7 +26,7 @@ import { Bucket, Labels } from './types.js';
  *   not emit more frequently than the configured bucket interval (e.g. only once a minute)
  * - call `flushNow` at the end of the application to make sure that the latest accumulated samples are flushed
  */
-export class Sampler {
+export class Sampler<L extends object = {}> {
 
     onFlush = new Event<Bucket[]>();
 
@@ -37,7 +37,7 @@ export class Sampler {
         readonly bucketInverval = 60_000,
     ) {}
 
-    add(value: number, labels: Labels, data: any) {
+    add(value: number, labels: L, data: any) {
         this.flushBuckets();
         const key = this.getLabelsKey(labels);
         const bucket = this.bucketMap.get(key);
@@ -68,7 +68,7 @@ export class Sampler {
         this.flushBuckets(true);
     }
 
-    private getLabelsKey(labels: Labels) {
+    private getLabelsKey(labels: L) {
         return Object.entries(labels)
             .map(([k, v]) => `${k}=${v}`)
             .sort()
